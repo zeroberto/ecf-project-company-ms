@@ -1,0 +1,55 @@
+plugins {
+  id 'org.springframework.boot' version "$springBootPluginVersion"
+  id 'idea'
+}
+
+configurations {
+  integrationTestImplementation.extendsFrom testImplementation
+  integrationTestRuntimeOnly.extendsFrom testRuntimeOnly
+}
+
+group 'com.ecfproject.app'
+version '0.0.1'
+
+plugins.apply('io.spring.dependency-management')
+
+dependencies {
+  implementation project(':company-ms-core')
+
+  implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+  implementation 'org.flywaydb:flyway-core'
+  implementation 'org.postgresql:postgresql:42.2.20'
+
+  implementation 'org.springframework.boot:spring-boot-starter-web'
+
+  testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+  integrationTestImplementation 'org.testcontainers:postgresql:1.15.3'
+}
+
+sourceSets {
+  integrationTest {
+    compileClasspath += sourceSets.main.output
+    runtimeClasspath += sourceSets.main.output
+  }
+}
+
+idea {
+  module {
+    testSourceDirs += sourceSets.integrationTest.java.srcDirs
+    testResourceDirs += sourceSets.integrationTest.resources.srcDirs
+    scopes.TEST.plus += [configurations.integrationTestCompile]
+  }
+}
+
+tasks.register('integrationTest', Test) {
+  description = 'Runs integration tests.'
+  group = 'verification'
+
+  testClassesDirs = sourceSets.integrationTest.output.classesDirs
+  classpath = sourceSets.integrationTest.runtimeClasspath
+  shouldRunAfter test
+}
+
+check.dependsOn integrationTest
+

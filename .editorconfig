@@ -1,0 +1,30 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Unix-style newlines with a newline ending every file
+[*]
+end_of_line = lf
+insert_final_newline = true
+
+# Matches multiple files with brace expansion notation
+# Set default charset
+[*.java]
+charset = utf-8
+indent_style = space
+indent_size = 2
+ij_java_blank_lines_after_imports = 1
+ij_java_blank_lines_before_imports = 1
+ij_java_class_count_to_use_import_on_demand = 999
+ij_java_imports_layout = *,|,java.**,javax.**,|,$*
+ij_java_insert_inner_class_imports = false
+ij_java_layout_static_imports_separately = true
+ij_java_names_count_to_use_import_on_demand = 999
+ij_java_use_single_class_imports = true
+
+# 2 space indentation
+[*.{sql,yml,xml,sh,gradle}]
+indent_style = space
+indent_size = 2
+ij_smart_tabs = false

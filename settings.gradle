@@ -1,0 +1,3 @@
+rootProject.name = 'ecf-project-company-ms'
+
+include 'company-ms-core', 'company-ms-app'

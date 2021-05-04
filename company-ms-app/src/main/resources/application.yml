@@ -1,0 +1,18 @@
+spring:
+  application.name: ecfproject.company-ms.api
+  profiles.active: ${APP_PROFILE}
+  datasource:
+    url: ${APP_COMPANY_MS_DB_URL:jdbc:postgresql://localhost:5432/company_db}
+    username: ${APP_COMPANY_MS_DB_USER:postgres}
+    password: ${APP_COMPANY_MS_DB_PASSWORD:secret}
+    hikari:
+      connectionTimeout: ${APP_COMPANY_MS_DB_CONN_TIMEOUT:10000}
+      maximumPoolSize: ${APP_COMPANY_MS_DB_POOL_SIZE:5}
+  jpa:
+    hibernate:
+      ddl-auto: ${APP_COMPANY_MS_DB_DDL_AUTO:create}
+
+app:
+  controller:
+    path:
+      legalPerson: /legal-person

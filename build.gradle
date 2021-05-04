@@ -1,0 +1,56 @@
+plugins {
+  id 'checkstyle'
+  id 'java'
+  id 'pmd'
+}
+
+group 'com.ecfproject'
+version '0.0.1'
+
+repositories {
+  mavenCentral()
+}
+
+test {
+  useJUnitPlatform()
+}
+
+pmd {
+  consoleOutput = true
+}
+
+checkstyle {
+  toolVersion = '8.41.1'
+}
+
+subprojects {
+  plugins.apply('checkstyle')
+  plugins.apply('java')
+  plugins.apply('pmd')
+
+  sourceCompatibility = 15
+  targetCompatibility = 15
+
+  repositories {
+    mavenCentral()
+  }
+
+  dependencies {
+    compileOnly "org.projectlombok:lombok:$lombokVersion"
+    annotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    implementation "org.mapstruct:mapstruct:$mapStructVersion"
+    annotationProcessor "org.mapstruct:mapstruct-processor:$mapStructVersion"
+
+    testCompileOnly "org.projectlombok:lombok:$lombokVersion"
+    testAnnotationProcessor "org.projectlombok:lombok:$lombokVersion"
+
+    testImplementation "org.assertj:assertj-core:3.19.0"
+    testImplementation "org.junit.jupiter:junit-jupiter-api:$junitVersion"
+    testRuntimeOnly "org.junit.jupiter:junit-jupiter-engine:$junitVersion"
+  }
+
+  test {
+    useJUnitPlatform()
+  }
+}
